@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FCFS &amp; SJF CPU Scheduler</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="brand-eyebrow">Operating systems, non-preemptive scheduling</div>
+      <h1>FCFS &amp; SJF Scheduler</h1>
+    </div>
+    <div class="clock">
+      Algorithms: <b>FCFS</b> or <b>SJF</b><br>
+      Mode: non-preemptive
+    </div>
+  </header>
+
+  <!-- STEP 1: choose process count + algorithm -->
+  <div class="panel" id="setupPanel">
+    <p class="panel-title"><span class="step-badge">1</span>Configure ready queue</p>
+    <div class="setup-row">
+      <div class="stepper">
+        <button id="decBtn" type="button">&minus;</button>
+        <input id="numProc" type="number" value="5" min="3" max="10" inputmode="numeric">
+        <button id="incBtn" type="button">+</button>
+      </div>
+      <div class="range-hint">processes &middot; allowed range 3&ndash;10</div>
+    </div>
+
+    <div class="algo-select">
+      <div class="algo-label">Scheduling algorithm</div>
+      <div class="algo-toggle">
+        <button class="algo-btn active" id="algoFcfsBtn" data-algo="FCFS" type="button">
+          <span class="algo-name">FCFS</span>
+          <span class="algo-desc">First come, first served</span>
+        </button>
+        <button class="algo-btn" id="algoSjfBtn" data-algo="SJF" type="button">
+          <span class="algo-name">SJF</span>
+          <span class="algo-desc">Shortest job first</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="actions-row">
+      <div></div>
+      <button class="btn btn-primary" id="buildBtn" type="button">Build input table</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: enter process data -->
+  <div class="panel" id="inputPanel" style="display:none;">
+    <p class="panel-title"><span class="step-badge">2</span>Enter process data <span class="algo-chip" id="algoChipInput">FCFS</span></p>
+    <table class="input-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Process ID</th>
+          <th>Arrival time</th>
+          <th>Burst time</th>
+        </tr>
+      </thead>
+      <tbody id="inputTableBody"></tbody>
+    </table>
+    <div class="actions-row">
+      <div class="status-msg" id="statusMsg">Fill in every field &mdash; IDs and arrival times must be unique.</div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-ghost" id="backBtn" type="button">Back</button>
+        <button class="btn btn-primary" id="runBtn" type="button" disabled>Run scheduler</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: results -->
+  <div class="panel" id="resultsPanel">
+    <p class="panel-title"><span class="step-badge">3</span>Execution timeline <span class="algo-chip" id="algoChipResults">FCFS</span></p>
+    <div class="gantt-track" id="ganttTrack"></div>
+    <div class="gantt-ruler" id="ganttRuler"></div>
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background:var(--stamp)"></span>CPU executing</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--card-edge); border:1px solid var(--rule);"></span>CPU idle</div>
+    </div>
+
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>PID</th><th>Arrival</th><th>Burst</th><th>Start</th><th>Completion</th><th>Turnaround</th><th>Waiting</th>
+        </tr>
+      </thead>
+      <tbody id="resultsTableBody"></tbody>
+    </table>
+
+    <div class="readouts">
+      <div class="readout">
+        <div class="readout-label">Average waiting time</div>
+        <div class="readout-value" id="avgWait">0.00 <span>units</span></div>
+      </div>
+      <div class="readout">
+        <div class="readout-label">Average turnaround time</div>
+        <div class="readout-value" id="avgTAT">0.00 <span>units</span></div>
+      </div>
+    </div>
+
+    <div class="actions-row">
+      <button class="btn btn-ghost" id="editBtn" type="button">Edit processes</button>
+      <button class="btn btn-ghost" id="resetBtn" type="button">Start over</button>
+    </div>
+  </div>
+
+  <footer>De La Salle Lipa, College of Information Technology and Engineering &mdash; Machine Problem 2</footer>
+</div>
+
+<script src="mp2_script.js"></script>
+</body>
+</html>
